@@ -10,11 +10,8 @@ func InitScheduler() {
 	// 初始化定时任务调度器
 	global.Cron = cron.New(cron.WithSeconds())
 
-	// 每6小时执行一次
-	_, err := global.Cron.AddFunc("0 0 */6 * * *", UpdateInventoryTask)
-	if err != nil {
-		log.Fatalf("注册任务失败: %v", err)
-	}
+	// 注册定时任务
+	registerTasks()
 
 	// 启动定时任务调度器
 	global.Cron.Start()
